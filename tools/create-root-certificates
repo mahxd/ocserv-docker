@@ -1,0 +1,13 @@
+#!/bin/bash
+# 
+# Usage create-certificates "vpn server ip address"
+#
+
+## Generate a CA private key (This is the root private key)
+certtool --generate-privkey --sec-param high --outfile etc/certs/ca.key
+
+## Generate a CA certificate (This is the root certificate)
+certtool --generate-self-signed --load-privkey etc/certs/ca.key --template etc/certs/ca.template --outfile etc/certs/ca.crt
+
+## Protect the root keys
+chmod -R 700 etc/

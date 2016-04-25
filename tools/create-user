@@ -1,0 +1,19 @@
+#!/bin/sh
+
+## Usage: create-user "username" "email address", it will generate a password file username.password under etc/user/
+
+username=$1
+email=$2
+
+containerid=$(docker ps  | grep vpn_run | awk '{print $1}')
+
+password=$(openssl rand -hex 4)
+
+echo $password > etc/user/$username.password
+echo $password |  docker exec -i $containerid ocpasswd $username
+
+## TODO
+# Send this to email address 
+
+## Protect the user keys
+chmod -R 700 etc/

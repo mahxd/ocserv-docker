@@ -1,0 +1,18 @@
+#!/bin/bash
+# 
+# Usage create-server-certificates "vpn server ip address"
+#
+
+ip=$1
+
+## Replace the Ip with current IP                
+bash -c "sed 's/Replace with your VPN server public IP address/$ip/g' etc/certs/server.template > etc/certs/server_with_ip.template"
+
+## Generate server private key
+certtool --generate-privkey --sec-param high --outfile etc/certs/server.key
+
+## Generate a server certificate
+certtool --generate-certificate --load-privkey etc/certs/server.key --load-ca-certificate etc/certs/ca.crt --load-ca-privkey etc/certs/ca.key --template etc/certs/server_with_ip.template --outfile etc/certs/server.crt
+
+## Protect the server keys
+chmod -R 700 etc/

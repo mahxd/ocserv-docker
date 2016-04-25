@@ -1,0 +1,16 @@
+#!/bin/bash
+# This import user and password from etc/user/
+
+userfiles=$(find etc/user/* | grep password)
+
+containerid=$(docker ps  | grep vpn_run | awk '{print $1}')
+
+while read -r userfile; do
+  user=${userfile%".password"}
+  user=${user#"etc/user/"}
+  password=$(head -n 1 $userfile)
+  echo $password | docker exec -i $containerid ocpasswd $user
+done <<< "$userfiles"
+
+## Protect the user keys
+chmod -R 700 etc/
