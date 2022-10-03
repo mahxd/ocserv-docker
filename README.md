@@ -80,12 +80,8 @@
 	
     For more info on iptables config, please check https://www.vultr.com/docs/setup-iptables-firewall-on-centos-6    
    
-8. Start the ocserver daemon
+8. Start the ocserver using docker compose (recommended)
 
-   `docker run -d --privileged -v $(pwd)/etc:/etc/ocserv -p 443:443/tcp -p 443:443/udp seanzhong/ocserv-docker`
-   
-   you can also put your configuration inside docker compose file the run it
-   
    ```
    docker compose pull
    
@@ -93,7 +89,10 @@
    
    docker compose ps
    ```
-      
+   Or using docker command
+
+   `docker run -d --privileged -v $(pwd)/etc:/etc/ocserv -p 443:443/tcp -p 443:443/udp seanzhong/ocserv-docker`
+         
 9. Check whether the service is running by:
    `docker logs <docker container id>`
    
