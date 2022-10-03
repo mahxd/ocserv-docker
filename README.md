@@ -10,7 +10,7 @@
  
 2. Download the source code. This is necessary as the source repo contains some admin tools under `tools/` for host machine.
 
-  `cd ~;git clone https://github.com/clockfly/ocserv-docker.git`. 
+  `cd ~;git clone https://github.com/mahxd/ocserv-docker.git`. 
 
   Before this, you need to install git first if you don't have git installed
   ```
