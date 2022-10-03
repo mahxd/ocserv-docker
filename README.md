@@ -27,9 +27,13 @@
   
 4. Generate the root CA certifate if you don't have one by:
    ```
+   #debian based:
+   apt install gnutls-bin
+   
+   #redhat based:
    yum install gnutls-utils
    
-   chmod +x tool/*
+   chmod +x tools/*
    
    tools/create-root-certificates
    ```
@@ -109,7 +113,32 @@
     
   NOTE: Please change etc/certs/client.template to meet your demand.
   
-2. Download the Cisco AnyConnect from https://github.com/clockfly/eduvpn_web/tree/master/files
+2. Download the Cisco AnyConnect or open connect and connect to vpn
+```
+android:
+	https://play.google.com/store/apps/details?id=com.github.digitalsoftwaresolutions.openconnect&hl=en&gl=US 
+	https://play.google.com/store/apps/details?id=com.cisco.anyconnect.vpn.android.avf&hl=en&gl=US
+
+IOS:	https://apps.apple.com/de/app/cisco-anyconnect/id1135064690
+
+Windows:https://github.com/openconnect/openconnect-gui/releases/download/v1.5.3/openconnect-gui-1.5.3-win32.exe
+	https://openconnect.github.io/openconnect-gui/
+	OR any connect
+	http://www.hostwaydcs.com/CISCO/AnyConnect/anyconnect-win-4.10.05095-predeploy-k9.zip
+
+linux: ubuntu:  sudo apt install openconnect network-manager-openconnect network-manager-openconnect-gnome
+		>> create new vpn connection in network manager 
+		>> type cisco anyconnect 
+		>> just enter gateway address 
+		>> add >> then connect
+		
+	OR anyconnect
+	http://www.hostwaydcs.com/CISCO/AnyConnect/anyconnect-linux64-4.10.05095-predeploy-deb-k9.tar.gz
+	http://www.hostwaydcs.com/CISCO/AnyConnect/anyconnect-linux64-4.10.05095-predeploy-k9.tar.gz
+	
+
+MAC:	http://www.hostwaydcs.com/CISCO/AnyConnect/anyconnect-macos-4.9.04043-predeploy-k9.dmg
+```
   
 3. Enter the VPN server IP and make the connection
   
