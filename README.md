@@ -76,7 +76,7 @@
    
 8. Start the ocserver daemon
 
-   `docker run -d --privileged -v ~/ocserv-docker/etc:/etc/ocserv -p 443:443/tcp -p 443:443/udp seanzhong/ocserv-docker`
+   `docker run -d --privileged -v $(pwd)/etc:/etc/ocserv -p 443:443/tcp -p 443:443/udp seanzhong/ocserv-docker`
    
    you can also put your configuration inside docker compose file the run it
    
