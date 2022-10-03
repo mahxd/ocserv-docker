@@ -29,6 +29,8 @@
    ```
    yum install gnutls-utils
    
+   chmod +x tool/*
+   
    tools/create-root-certificates
    ```
 
