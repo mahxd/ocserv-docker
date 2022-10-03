@@ -12,8 +12,13 @@
 
   `cd ~;git clone https://github.com/clockfly/ocserv-docker.git`. 
 
-  Before this, you need to install git first
+  Before this, you need to install git first if you don't have git installed
   ```
+  #debian based: 
+  apt install git 
+  ```
+  ```
+  #redhat based:
   yum install git  
   ```
   
@@ -30,13 +35,27 @@
    It creates root certificate under etc/certs/
    
 5. Generate the server certifate for current VPN server:
+
    `tools/create-server-certificates <Enter your VPN server IP address>`
 
 6. Customize the configuration etc/ocserv.conf
    
-7. Config ip tables, config that works for me:
-  ```
-	iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+7. open ports using your os firewall like firewalld (firewall-cmd redhat bases) or ufw (debian based) if you don't want to enable firewall ignore this part.
+	```
+	#debian based
+	ufw allow 443
+	```
+   	```
+	#redhat based
+	firewall-cmd --add-port=443/tcp --permanent 
+	firewall-cmd --add-port=443/udp --permanent
+	firewall-cmd --reload
+	firewall-cmd --state
+	```
+    
+   OR Config ip tables (following open ssh,https port and icmp annd block other ports not recommended for regulare users) :
+	```
+	iptables -A INPUT -p tcp --dport 22 -j ACCEPT  
 	iptables -A INPUT -i lo -j ACCEPT
 	iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
 	iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
@@ -49,8 +68,8 @@
 	iptables -P OUTPUT ACCEPT
 	iptables -P FORWARD ACCEPT
 	```
-
-	After this, please restart the docker service to generate additional iptables rules for docker.
+    After this, please restart the docker service to generate additional iptables rules for docker.
+    
 	`systemctl restart docker`
 	
     For more info on iptables config, please check https://www.vultr.com/docs/setup-iptables-firewall-on-centos-6    
@@ -59,6 +78,12 @@
 
    `docker run -d --privileged -v ~/ocserv-docker/etc:/etc/ocserv -p 443:443/tcp -p 443:443/udp seanzhong/ocserv-docker`
    
+   you can also put your configuration inside docker compose file the run it
+   
+   `docker compose up -d`
+   
+   `docker compose ps`
+      
 9. Check whether the service is running by:
    `docker logs <docker container id>`
    
@@ -73,9 +98,11 @@
 ## Client side configuration
 
 1. Create a user
-  ```
+
   This will add an user entry to etc/ocpasswd and save the password to username.password under etc/user/
-  tools/create-user user_name user_email_address
+
+  ```
+  tools/create-user user_name password
   ``` 
     
   NOTE: Please change etc/certs/client.template to meet your demand.
@@ -88,4 +115,10 @@
 
 ## More notes:
 
-Upstream doc: https://github.com/wppurking/ocserv-docker 
+Upstream doc: 
+
+https://github.com/wppurking/ocserv-docker 
+
+and
+
+https://github.com/clockfly/ocserv-docker
