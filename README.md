@@ -86,9 +86,13 @@
    
    you can also put your configuration inside docker compose file the run it
    
-   `docker compose up -d`
+   ```
+   docker compose pull
    
-   `docker compose ps`
+   docker compose up -d
+   
+   docker compose ps
+   ```
       
 9. Check whether the service is running by:
    `docker logs <docker container id>`
