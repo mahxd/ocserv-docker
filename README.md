@@ -58,8 +58,11 @@
 	firewall-cmd --reload
 	firewall-cmd --state
 	```
-    
-   OR Config ip tables (following open ssh,https port and icmp annd block other ports not recommended for regulare users) :
+   <details>
+   <summary>
+   OR Config ip tables (following open ssh,https port and icmp annd block other ports not recommended for regulare users) 
+   </summary>
+
 	```
 	iptables -A INPUT -p tcp --dport 22 -j ACCEPT  
 	iptables -A INPUT -i lo -j ACCEPT
@@ -74,11 +77,13 @@
 	iptables -P OUTPUT ACCEPT
 	iptables -P FORWARD ACCEPT
 	```
+	
     After this, please restart the docker service to generate additional iptables rules for docker.
     
 	`systemctl restart docker`
 	
-    For more info on iptables config, please check https://www.vultr.com/docs/setup-iptables-firewall-on-centos-6    
+    For more info on iptables config, please check https://www.vultr.com/docs/setup-iptables-firewall-on-centos-6  
+    </details>
    
 8. Start the ocserver using docker compose (recommended)
 
@@ -134,6 +139,13 @@ linux: ubuntu:  sudo apt install openconnect network-manager-openconnect network
 		>> type cisco anyconnect 
 		>> just enter gateway address 
 		>> add >> then connect
+		
+	OR command line
+	sudo openconnect server-address:port
+	with password
+	echo your-password | sudo openconnect server-address:port -u your-username
+	require-pfs option
+	echo your-password | sudo openconnect --pfs server-address:port -u your-username
 		
 	OR anyconnect
 	http://www.hostwaydcs.com/CISCO/AnyConnect/anyconnect-linux64-4.10.05095-predeploy-deb-k9.tar.gz
